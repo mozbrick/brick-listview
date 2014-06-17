@@ -191,6 +191,10 @@
     }
   };
 
+  ListViewPrototype.render = function () {
+    init(this).then(render);
+  };
+
   Object.defineProperty(ListViewPrototype, "height", {
     get : function () {
       return this.ns.height || DEFAULT_HEIGHT;
