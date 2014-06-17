@@ -25,6 +25,7 @@
     if (!data) {
       return;
     }
+    ns.list.innerHTML = '';
     return data.size().then(function (numItems) {
       // A list of created, not-in-use DOM nodes
       ns.deadPool = [];
@@ -36,7 +37,6 @@
       ns.items = {};
       ns.numItems = numItems;
       ns.skippedFrames = 0;
-      ns.list.innerHTML = '';
       // Set the height of the scrolling strip
       ns.list.style.height = listview.height * numItems + 'px';
       return listview;
