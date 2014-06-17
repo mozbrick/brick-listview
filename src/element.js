@@ -15,7 +15,7 @@
                              function () {};
 
   function computeMetrics(listview) {
-    listview.ns.numItemsVisible = (listview.offsetHeight / listview.height|0) + 1;
+    listview.ns.numItemsVisible = (listview.offsetHeight / listview.ns.height|0) + 1;
   }
 
   function init(listview) {
@@ -24,7 +24,7 @@
     if (!data) {
       return;
     }
-    ns.list.innerHTML = '';
+    ns.list.innerHTML = '<div class="item sentinel"></div>';
     return data.size().then(function (numItems) {
       // A list of created, not-in-use DOM nodes
       ns.deadPool = [];
@@ -36,8 +36,9 @@
       ns.items = {};
       ns.numItems = numItems;
       ns.skippedFrames = 0;
+      ns.height = listview.querySelector('.sentinel').offsetHeight;
       // Set the height of the scrolling strip
-      ns.list.style.height = listview.height * numItems + 'px';
+      ns.list.style.height = ns * numItems + 'px';
       return listview;
     });
   }
@@ -50,7 +51,6 @@
   function renderItem(listview, i) {
     var div;
     var deadPool = listview.ns.deadPool;
-    var height = listview.height;
     var data = listview.ns.data;
     var labelKey = listview.ns.labelKey;
     if (deadPool.length) {
@@ -67,8 +67,8 @@
       }
     });
     // place the element along the scroll strip.
-    div.style.transform = 'translateY(' + i * height + 'px)';
-    div.style.webkitTransform = 'translateY(' + i * height + 'px)';
+    div.style.transform = 'translateY(' + i * 100 + '%)';
+    div.style.webkitTransform = 'translateY(' + i * 100 + '%)';
     return div;
   }
 
@@ -88,7 +88,7 @@
     var items = ns.items;
     var visibleItems = ns.visibleItems;
     var deadPool = ns.deadPool;
-    var height = listview.height;
+    var height = ns.height;
     var min = Math.max((listview.scrollTop / height|0) - itemWindow, 0);
     var max = Math.min((listview.scrollTop / height|0) + itemWindow * 2, ns.numItems);
     for (var i = min; i < max; i++) {

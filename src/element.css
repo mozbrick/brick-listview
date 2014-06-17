@@ -14,6 +14,9 @@ list-view {
   max-width: 100%;
   display: block;
 }
+list-view .item.sentinel {
+  visibility: hidden;
+}
 list-view .list {
   position: relative;
   transform: translateZ(0);
