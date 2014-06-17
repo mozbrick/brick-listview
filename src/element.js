@@ -1,6 +1,5 @@
 (function () {
 
-  var DEFAULT_HEIGHT = 48;
   var SCROLL_TIMEOUT = 100;
 
   var requestAnimationFrame = window.requestAnimationFrame ||
@@ -40,7 +39,7 @@
       // Set the height of the scrolling strip
       ns.list.style.height = listview.height * numItems + 'px';
       return listview;
-    }).catch(console.error.bind(console));
+    });
   }
 
   function defaultRenderer(el, item, i, label) {
@@ -182,9 +181,7 @@
     'storage': function (oldVal, newVal) {
       var list = this;
       list.ns.storage = document.getElementById(newVal);
-      init(list).then(function () {
-        render(list);
-      });
+      init(list).then(render);
     }
   };
 
@@ -197,16 +194,6 @@
   ListViewPrototype.render = function () {
     init(this).then(render);
   };
-
-  Object.defineProperty(ListViewPrototype, "height", {
-    get : function () {
-      return this.ns.height || DEFAULT_HEIGHT;
-    },
-    set : function (newVal) {
-      this.ns.height = newVal;
-      render(this);
-    }
-  });
 
   window.ListView = document.registerElement('list-view', {
     prototype: ListViewPrototype
