@@ -36,6 +36,7 @@
       ns.items = {};
       ns.numItems = numItems;
       ns.skippedFrames = 0;
+      ns.list.innerHTML = '';
       // Set the height of the scrolling strip
       ns.list.style.height = listview.height * numItems + 'px';
       return listview;
