@@ -24,7 +24,7 @@ list-view .list {
 list-view .item {
   height: 4rem;
   line-height: 2rem;
-  font-size: 2rem;
+  font-size: 1rem;
   font-family: 'Fira Sans';
   padding: 0.5rem 0 0.5rem 1rem;
   position: absolute;
