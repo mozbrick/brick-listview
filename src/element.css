@@ -22,10 +22,11 @@ list-view .list {
   transform: translateZ(0);
 }
 list-view .item {
-  height: 4em;
-  line-height: 2em;
+  height: 4rem;
+  line-height: 2rem;
+  font-size: 2rem;
   font-family: 'Fira Sans';
-  padding: 0.5em 0 0.5em 1em;
+  padding: 0.5rem 0 0.5rem 1rem;
   position: absolute;
   width: 100%;
   border-bottom: 1px solid #ccc;
