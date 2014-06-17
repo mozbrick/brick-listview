@@ -48,7 +48,7 @@
   }
 
   function renderItem(listview, i) {
-    var div, img, span;
+    var div;
     var deadPool = listview.ns.deadPool;
     var height = listview.height;
     var data = listview.ns.data;
@@ -61,6 +61,7 @@
       div.classList.add('item');
     }
     data.getMany({offset:i,count:1}).then(function (item) {
+      div.__item__ = item;
       defaultRenderer(div, item[0], i, item[0][labelKey]);
     });
     // place the element along the scroll strip.
