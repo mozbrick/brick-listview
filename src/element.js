@@ -38,7 +38,7 @@
       ns.skippedFrames = 0;
       ns.height = listview.querySelector('.sentinel').offsetHeight;
       // Set the height of the scrolling strip
-      ns.list.style.height = ns * numItems + 'px';
+      ns.list.style.height = ns.height * numItems + 'px';
       return listview;
     });
   }
