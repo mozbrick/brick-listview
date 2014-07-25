@@ -1,16 +1,17 @@
 /* jshint node:true */
-var gulp = require('gulp');
-var jshint = require('gulp-jshint');
-var connect = require('gulp-connect');
-var stylus = require('gulp-stylus');
-var ghpages = require('gulp-gh-pages');
+'use strict';
+
 var bump = require('gulp-bump');
 var concat = require('gulp-concat');
+var connect = require('gulp-connect');
+var ghpages = require('gulp-gh-pages');
+var gulp = require('gulp');
 var helptext = require('gulp-helptext');
-
+var jshint = require('gulp-jshint');
+var stylus = require('gulp-stylus');
 
 var paths = {
-  'main': 'src/element.html',
+  'main': 'src/brick-listview.html',
   'scripts': 'src/*.js',
   'stylesheets': 'src/*.styl',
   'src': 'src/*',
@@ -24,14 +25,12 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('default'));
 });
 
-
 gulp.task('styles', function() {
   gulp.src(paths.stylesheets)
     .pipe(stylus())
-    .pipe(concat('element.css'))
+    .pipe(concat('brick-listview.css'))
     .pipe(gulp.dest('src'));
 });
-
 
 // build scripts and styles
 gulp.task('build', ['lint','styles']);
@@ -52,10 +51,8 @@ gulp.task('watch', function () {
 // do a build, start a server, watch for changes
 gulp.task('server', ['build','connect','watch']);
 
-
-// Bum up the Version (patch)
+// Bump up the Version (patch)
 gulp.task('bump', function(){
-  console.log(arguments);
   gulp.src(['bower.json','package.json'])
   .pipe(bump())
   .pipe(gulp.dest('./'));
@@ -63,10 +60,12 @@ gulp.task('bump', function(){
 
 gulp.task('help', helptext({
   'default': 'Shows the help message',
-  'help': 'Shis help message',
+  'help': 'This help message',
   'styles': 'Compiles stylus',
   'lint': 'Runs JSHint on your code',
-  'server': 'Start the development server'
+  'server': 'Starts the development server',
+  'bump': 'Bumps up the Version',
+  'deploy': 'Publish to Github pages'
 }));
 
 // publish to gh pages

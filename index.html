@@ -3,39 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
-    <title>Custom Element Demo</title>
+    <title>brick-listview</title>
 
     <!-- Importing Polyfill -->
     <script src="bower_components/platform/platform.js"></script>
 
     <!-- Importing Custom Elemenent -->
-    <link rel="import" href="/bower_components/x-storage-indexeddb/src/element.html">
-    <link rel="import" href="/src/element.html">
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-      }
-    </style>
+    <link rel="import" href="src/brick-listview.html">
   </head>
   <body>
 
-    <x-storage-indexeddb id="store" name="todos" key="created"></x-storage-indexeddb>
+    <!-- Using Custom Element -->
+    <brick-listview></brick-listview>
 
-    <list-view storage="store" id="list" label="label"></list-view>
-
-    <script>
-      window.addEventListener('WebComponentsReady', function () {
-        window.store = document.querySelector('#store');
-        window.list = document.querySelector('#list');
-      });
-      function addTodo(desc) {
-        store.insert({
-          label: desc,
-          created: Date.now(),
-          done: false
-        });
-      }
-    </script>
   </body>
 </html>

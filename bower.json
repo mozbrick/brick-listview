@@ -1,13 +1,12 @@
 {
-  "name": "brick-boilerplate",
+  "name": "brick-listview",
   "version": "0.0.0",
-  "homepage": "https://github.com/mozilla/brick-boilerplate",
+  "homepage": "https://github.com/mozbrick/brick-listview",
   "authors": [
-    "Matt Claypotch <thepotch@gmail.com>",
-    "Christian Weiss <christian.x.weiss@gmail.com>"
+    "mozilla"
   ],
-  "description": "Empty Brick Component Project",
-  "main": "src/element.html",
+  "description": "A storage-backed scrolling list",
+  "main": "src/brick-listview.html",
   "keywords": [
     "brick",
     "webcomponents"
@@ -23,9 +22,5 @@
   "dependencies": {
     "brick-common": "*",
     "platform": "Polymer/platform"
-  },
-  "devDependencies": {
-    "x-storage-indexeddb": "~0.0.3",
-    "platform": "Polymer/platform#~0.3.2"
   }
 }
