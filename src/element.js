@@ -6,7 +6,7 @@
                               window.mozRequestAnimationFrame ||
                               window.webkitRequestAnimationFrame ||
                               window.msRequestAnimationFrame ||
-                              function (fn) { setTimeout(fn, 0); };
+                              function (fn) { setTimeout(fn, 16); };
 
   var cancelAnimationFrame = window.cancelAnimationFrame ||
                              window.mozCancelAnimationFrame ||
