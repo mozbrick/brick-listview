@@ -1,12 +1,12 @@
 {
-  "name": "brick-boilerplate",
-  "version": "0.0.0",
-  "homepage": "https://github.com/mozilla/brick-boilerplate",
+  "name": "x-storage-indexeddb",
+  "version": "0.0.3",
+  "homepage": "https://github.com/dotch/x-storage-indexeddb",
   "authors": [
     "Matt Claypotch <thepotch@gmail.com>",
     "Christian Weiss <christian.x.weiss@gmail.com>"
   ],
-  "description": "Empty Brick Component Project",
+  "description": "Web component indexdb storage",
   "main": "src/element.html",
   "keywords": [
     "brick",
@@ -24,8 +24,5 @@
     "brick-common": "*",
     "platform": "Polymer/platform"
   },
-  "devDependencies": {
-    "x-storage-indexeddb": "~0.0.3",
-    "platform": "Polymer/platform#~0.3.2"
-  }
+  "devDependencies": {}
 }
