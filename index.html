@@ -22,17 +22,28 @@
 
     <x-storage-indexeddb id="store" name="todos" key="created"></x-storage-indexeddb>
 
+    <button id="addone">Add 1 Item</button>
+    <button id="addten">Add 10 Items</button>
+
     <list-view storage="store" id="list" label="label"></list-view>
 
     <script>
       window.addEventListener('WebComponentsReady', function () {
         window.store = document.querySelector('#store');
         window.list = document.querySelector('#list');
+        document.querySelector('#addone').addEventListener('click', function () {
+          addTodo();
+        });
+        document.querySelector('#addten').addEventListener('click', function () {
+          for (var i=0; i<10; i++) {
+            addTodo(0);
+          });
+        });
       });
-      function addTodo(desc) {
+      function addTodo(offset) {
         store.insert({
-          label: desc,
-          created: Date.now(),
+          label: ((Math.random() * 1e6) | 0).toString(16),
+          created: Date.now() + (offset || 0),
           done: false
         });
       }
