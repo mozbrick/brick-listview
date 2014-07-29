@@ -22,5 +22,9 @@
   "dependencies": {
     "brick-common": "*",
     "platform": "Polymer/platform"
+  },
+  "devDependencies": {
+    "x-storage-indexeddb": "~0.0.3",
+    "platform": "Polymer/platform#~0.3.2"
   }
 }
