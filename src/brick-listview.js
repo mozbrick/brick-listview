@@ -28,6 +28,7 @@
     if (!data) {
       return;
     }
+    console.log(data);
     // create a hidden item to measure its height
     ns.list.innerHTML = '<div class="item sentinel"></div>';
     return data.size().then(function (numItems) {
