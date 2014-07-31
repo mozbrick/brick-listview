@@ -1,9 +1,9 @@
-list-view,
-list-view * {
+brick-listview,
+brick-listview * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
-list-view {
+brick-listview {
   overflow: auto;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
@@ -14,14 +14,14 @@ list-view {
   max-width: 100%;
   display: block;
 }
-list-view .item.sentinel {
+brick-listview .item.sentinel {
   visibility: hidden;
 }
-list-view .list {
+brick-listview .list {
   position: relative;
   transform: translateZ(0);
 }
-list-view .item {
+brick-listview .item {
   height: 4rem;
   line-height: 2rem;
   font-size: 1rem;
@@ -32,9 +32,9 @@ list-view .item {
   border-bottom: 1px solid #ccc;
   cursor: pointer;
 }
-list-view .item:hover {
+brick-listview .item:hover {
   background: #eee;
 }
-list-view.scrolling .item {
+brick-listview.scrolling .item {
   pointer-events: none;
 }

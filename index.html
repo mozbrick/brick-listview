@@ -9,32 +9,55 @@
     <script src="bower_components/platform/platform.js"></script>
 
     <!-- Importing Custom Elemenent -->
-    <link rel="import" href="/bower_components/x-storage-indexeddb/src/brick-.html">
-    <link rel="import" href="/src/brick-index.html">
+    <link rel="import" href="bower_components/brick-storage-indexeddb/src/brick-storage-indexeddb.html">
+    <link rel="import" href="src/brick-listview.html">
     <style>
       html, body {
         height: 100%;
         margin: 0;
       }
+      #list {
+        flex: 1;
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
     </style>
   </head>
   <body>
 
-    <x-storage-indexeddb id="store" name="todos" key="created"></x-storage-indexeddb>
+    <brick-storage-indexeddb id="store" name="todos" keyname="created"></brick-storage-indexeddb>
 
-    <list-view storage="store" id="list" label="label"></list-view>
+    <div>
+      <nav>
+        <button id="addone">Add 1 Item</button>
+        <button id="addten">Add 10 Items</button>
+      </nav>
+
+      <brick-listview storage="store" id="list" label="label"></brick-listview>
+    </div>
 
     <script>
       window.addEventListener('WebComponentsReady', function () {
         window.store = document.querySelector('#store');
         window.list = document.querySelector('#list');
-      });
-      function addTodo(desc) {
-        store.insert({
-          label: desc,
-          created: Date.now(),
-          done: false
+        document.querySelector('#addone').addEventListener('click', function () {
+          addTodo();
         });
+        document.querySelector('#addten').addEventListener('click', function () {
+          for (var i=0; i<10; i++) {
+            addTodo(i);
+          }
+        });
+      });
+      function addTodo(offset) {
+        store.insert({
+          label: ((Math.random() * 1e6) | 0).toString(16),
+          created: Date.now() + (offset || 0),
+          done: false
+        }).then(console.log.bind(console, 'inserted'));
       }
     </script>
   </body>
