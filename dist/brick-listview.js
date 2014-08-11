@@ -1,6 +1,10 @@
+/* global Platform, Promise*/
+
 (function () {
 
   var SCROLL_TIMEOUT = 100;
+
+  var currentScript = document._currentScript || document.currentScript;
 
   var requestAnimationFrame = window.requestAnimationFrame ||
                               window.mozRequestAnimationFrame ||
@@ -17,6 +21,18 @@
   var webComponentsReady = new Promise(function (resolve) {
     window.addEventListener('WebComponentsReady', resolve);
   });
+
+  function shimShadowStyles(styles, tag) {
+    if (!Platform.ShadowCSS) {
+      return;
+    }
+    for (var i = 0; i < styles.length; i++) {
+      var style = styles[i];
+      var cssText = Platform.ShadowCSS.shimStyle(style, tag);
+      Platform.ShadowCSS.addCssToDocument(cssText);
+      style.remove();
+    }
+  }
 
   function computeMetrics(listview) {
     listview.ns.numItemsVisible = (listview.offsetHeight / listview.ns.height|0) + 1;
@@ -254,6 +270,18 @@
           listview.ns.data = storage;
         }
       }
+
+      // import template
+      var importDoc = currentScript.ownerDocument;
+      var templateContent = importDoc.querySelector('#brick-listview-template').content;
+
+      // fix styling for polyfill
+      shimShadowStyles(templateContent.querySelectorAll('style'), 'brick-listview');
+
+      // create shadowRoot and append template
+      var shadowRoot = listview.createShadowRoot();
+
+      shadowRoot.appendChild(templateContent.cloneNode(true));
 
       listview.ns.scrollHandler = listview.addEventListener('scroll', function() {
         scroll(listview);

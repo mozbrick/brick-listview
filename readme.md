@@ -17,7 +17,7 @@
 2. Import Custom Element:
 
     ```html
-    <link rel="import" href="src/brick-listview.html">
+    <link rel="import" href="dist/brick-listview.html">
     ```
 
 3. Start using it:
