@@ -193,7 +193,6 @@
 
     // do we need to fetch data?
     if (numToFetch > 0) {
-      // console.log('requesting ' + (realMax - realMin + 1) + ' rows');
       fetchRange(listview, realMin, realMax);
     }
 
@@ -254,7 +253,6 @@
     this.ns = {};
     var list = document.createElement('div');
     list.classList.add('list');
-    this.ns.foo = 'bar';
     this.ns.list = list;
     this.appendChild(list);
   };
@@ -263,6 +261,8 @@
     var listview = this;
 
     webComponentsReady.then(function() {
+
+      // get the storage
       var storage = listview.getAttribute('storage');
       if (storage) {
         storage = document.getElementById(storage);
@@ -280,14 +280,16 @@
 
       // create shadowRoot and append template
       var shadowRoot = listview.createShadowRoot();
-
       shadowRoot.appendChild(templateContent.cloneNode(true));
 
+      // setup event handlers
       listview.ns.scrollHandler = listview.addEventListener('scroll', function() {
         scroll(listview);
       });
       listview.ns.clickHandler = listview.addEventListener('click', clickHandler.bind(listview));
-      init(listview).then(render);
+
+      // render the list
+      listview.render();
 
     });
   };
