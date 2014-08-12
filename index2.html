@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <title>Custom Element Demo</title>
+
+    <!-- Importing Polyfill -->
+    <script src="bower_components/platform/platform.js"></script>
+
+    <!-- Importing Custom Elemenent -->
+    <link rel="import" href="bower_components/brick-storage-indexeddb/dist/brick-storage-indexeddb.html">
+    <link rel="import" href="dist/brick-listview.local.html">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+      #list {
+        flex: 1;
+      }
+      #main {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+
+
+    <div id="main">
+      <nav>
+        <button id="addone">Add 1 Item</button>
+        <button id="addten">Add 10 Items</button>
+      </nav>
+
+      <brick-listview id="list" label="label"></brick-listview>
+    </div>
+
+    <script>
+      window.addEventListener('WebComponentsReady', function () {
+        window.list = document.querySelector('#list');
+        document.querySelector('#addone').addEventListener('click', function () {
+          addTodo();
+        });
+        document.querySelector('#addten').addEventListener('click', function () {
+          for (var i=0; i<10; i++) {
+            addTodo(i);
+          }
+        });
+        window.store = [];
+        list.data = store;
+      });
+      function addTodo(offset) {
+        store.push({
+          label: ((Math.random() * 1e6) | 0).toString(16),
+          created: Date.now() + (offset || 0),
+          done: false
+        });
+        list.render();
+      }
+    </script>
+  </body>
+</html>
