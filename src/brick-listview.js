@@ -22,6 +22,23 @@
     window.addEventListener('WebComponentsReady', resolve);
   });
 
+  function ArrayAdapter(array) {
+
+    this.array = array;
+
+    this.size = function () {
+      return Promise.resolve(array.length);
+    };
+
+    this.getMany = function (options) {
+      options = options || {};
+      var start = options.offset || 0;
+      var end = options.count ? options.count + start + 1: undefined;
+      return Promise.resolve(array.slice(options.offset, end));
+    };
+
+  }
+
   function shimShadowStyles(styles, tag) {
     if (!Platform.ShadowCSS) {
       return;
@@ -42,7 +59,7 @@
     var ns = listview.ns;
     var data = ns.data;
     if (!data) {
-      return;
+      return Promise.resolve(listview);
     }
     // create a hidden item to measure its height
     ns.list.innerHTML = '<div class="item sentinel"></div>';
@@ -161,7 +178,7 @@
     }
     var list = ns.list;
     var items = ns.items;
-    var visibleItems = ns.visibleItems;
+    var visibleItems = ns.visibleItems || [];
     var deadPool = ns.deadPool;
     var height = ns.height;
     var min = Math.max((listview.scrollTop / height|0) - itemWindow * 2, 0);
@@ -304,7 +321,7 @@
     'storage': function (oldVal, newVal) {
       var list = this;
       list.ns.storage = document.getElementById(newVal);
-      init(list).then(render);
+      list.render();
     }
   };
 
@@ -317,6 +334,23 @@
   ListViewPrototype.render = function () {
     init(this).then(render);
   };
+
+  Object.defineProperties (ListViewPrototype, {
+    'data': {
+      get: function () {
+        // return either the array or the store
+        return this.ns.data.array || this.ns.data;
+      },
+      set: function (newVal) {
+        if (Array.isArray(newVal)) {
+          this.ns.data = new ArrayAdapter(newVal);
+        } else {
+          this.ns.data = newVal;
+        }
+        this.render();
+      }
+    }
+  });
 
   window.BrickListViewElement = document.registerElement('brick-listview', {
     prototype: ListViewPrototype
