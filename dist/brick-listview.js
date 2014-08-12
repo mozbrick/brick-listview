@@ -34,7 +34,7 @@
       options = options || {};
       var start = options.offset || 0;
       var end = options.count ? options.count + start + 1: undefined;
-      return Promise.resolve(array.slice(options.offset, end));
+      return Promise.resolve(array.slice(start, end));
     };
 
   }
@@ -62,7 +62,7 @@
       return Promise.resolve(listview);
     }
     // create a hidden item to measure its height
-    ns.list.innerHTML = '<div class="item sentinel"></div>';
+    ns.list.innerHTML = '<div class="item sentinel">test</div>';
     return data.size().then(function (numItems) {
       // A list of created, not-in-use DOM nodes
       ns.deadPool = [];
@@ -95,6 +95,7 @@
     } else {
       div = document.createElement('div');
       div.classList.add('item');
+      div.style.display = 'none';
     }
     // place the element along the scroll strip.
     div.style.transform = 'translateY(' + i * 100 + '%)';
@@ -120,6 +121,7 @@
 
   function renderItem(el, row, listview) {
     defaultRenderer(el, row, row[listview.ns.labelKey]);
+    el.style.display = 'block';
   }
 
   function removeReq(requests, min, max) {
@@ -216,6 +218,7 @@
     for (i = 0; i < visibleItems.length; i++) {
       var idx = visibleItems[i];
       if (idx < min || idx > max) {
+        items[idx].style.display = 'none';
         deadPool.push(items[idx]);
         visibleItems.splice(i,1);
         delete items[idx];
