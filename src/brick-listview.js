@@ -348,9 +348,17 @@
 
   var attrs = {
     'storage': function (oldVal, newVal) {
-      var list = this;
-      list.ns.storage = document.getElementById(newVal);
-      list.render();
+      this.ns.storage = document.getElementById(newVal);
+      this.render();
+    },
+    'label': function () {
+      this.render();
+    },
+    'detail': function () {
+      this.render();
+    },
+    'image': function () {
+      this.render();
     }
   };
 
