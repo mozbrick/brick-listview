@@ -1,3 +1,20 @@
 @import '../../../bower_components/brick-common/styles/mixins'
 @import '../../../bower_components/brick-common/styles/params'
 @import '../../../bower_components/brick-common/styles/themes/default/params'
+
+:host {
+  .item {
+    border-bottom: 1px solid $color-iota;
+    &:hover {
+      background: #eee;
+    }
+    .content {
+      line-height: 1.4em;
+      margin-left: 1.5em;
+      & div:last-child {
+        font-size: .88em;
+        color: $color-epsilon;
+      }
+    }
+  }
+}

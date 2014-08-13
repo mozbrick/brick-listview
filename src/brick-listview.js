@@ -68,6 +68,8 @@
       ns.deadPool = [];
       // Object key to use for display label;
       ns.labelKey = listview.getAttribute('label');
+      ns.imageKey = listview.getAttribute('image');
+      ns.detailKey = listview.getAttribute('detail');
       // The indexes of the items currently rendered
       ns.visibleItems = [];
       // A lookup cache by index of items from ns.data
@@ -82,8 +84,39 @@
     });
   }
 
-  function defaultRenderer(el, item, label) {
-    el.textContent = label;
+  function defaultRenderer(el, row, listview) {
+    el.innerHTML = "";
+    var labelKey = listview.ns.labelKey;
+    var imageKey = listview.ns.imageKey;
+    var detailKey = listview.ns.detailKey;
+
+    // the image
+    if (imageKey) {
+      var img = document.createElement('img');
+      img.src = row[listview.getAttribute(imageKey)];
+      el.appendChild(img);
+    }
+
+    // the content
+    var content = document.createElement('div');
+    content.classList.add('content');
+
+    if (labelKey) {
+      var label = document.createElement('div');
+      label.textContent = row[labelKey];
+      content.appendChild(label);
+    }
+    if (detailKey) {
+      var detail = document.createElement('div');
+      detail.textContent = row[detailKey];
+      content.appendChild(detail);
+    }
+    if (content.hasChildNodes()) {
+      el.appendChild(content);
+    }
+
+    // meh.
+    el.style.display = 'flex';
   }
 
   function placeItem(listview, i) {
@@ -120,8 +153,7 @@
   }
 
   function renderItem(el, row, listview) {
-    defaultRenderer(el, row, row[listview.ns.labelKey]);
-    el.style.display = 'block';
+    defaultRenderer(el, row, listview);
   }
 
   function removeReq(requests, min, max) {
@@ -150,7 +182,6 @@
         }
       }
     });
-
     var req = data.getMany({offset: realMin, count: realMax-realMin+1});
 
     rangeRequests.push({

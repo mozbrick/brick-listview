@@ -1,8 +1,8 @@
-brick-listview, brick-listview * {
+:host, :host * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
-brick-listview {
+:host {
   overflow: auto;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
@@ -21,19 +21,18 @@ brick-listview {
     transform: translateZ(0);
   }
   .item {
-    line-height: 2rem;
-    font-size: 1rem;
-    font-family: 'Fira Sans';
-    padding: .5rem 0 .5rem 1rem;
+    img {
+      height: 100%;
+    }
+    height: 80px;
     position: absolute;
     width: 100%;
-    border-bottom: 1px solid #ccc;
     cursor: pointer;
-    &:hover {
-      background: #eee;
+    display: flex;
+    .content {
+      align-self: center;
     }
   }
-
   &.scrolling {
     .item {
       pointer-events: none;
