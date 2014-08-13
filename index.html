@@ -28,15 +28,14 @@
   </head>
   <body>
 
-    <brick-storage-indexeddb id="store" name="todos" keyname="created"></brick-storage-indexeddb>
+    <brick-storage-indexeddb id="store" name="items" keyname="created"></brick-storage-indexeddb>
 
     <div id="main">
       <nav>
         <button id="addone">Add 1 Item</button>
         <button id="addten">Add 10 Items</button>
       </nav>
-
-      <brick-listview storage="store" id="list" label="label"></brick-listview>
+      <brick-listview storage="store" id="list" label="label" image="image" detail="created"></brick-listview>
     </div>
 
     <script>
@@ -46,18 +45,23 @@
         document.querySelector('#addone').addEventListener('click', function () {
           addTodo();
         });
-        document.querySelector('#addten').addEventListener('click', function () {
+        var inserts = [];
+        inserts.push(document.querySelector('#addten').addEventListener('click', function () {
           for (var i=0; i<10; i++) {
             addTodo(i);
           }
-        });
+        }));
+        Promise.all(inserts).then(list.render);
       });
       function addTodo(offset) {
         store.insert({
           label: ((Math.random() * 1e6) | 0).toString(16),
+          image: 'http://placehold.it/80x80',
           created: Date.now() + (offset || 0),
           done: false
-        }).then(console.log.bind(console, 'inserted'));
+        }).then(function(){
+          console.log('inserted');
+        });
       }
     </script>
   </body>
