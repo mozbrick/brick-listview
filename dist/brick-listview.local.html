@@ -22,20 +22,27 @@
 }
 :host .list {
   position: relative;
-  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
 }
 :host .item {
   height: 80px;
   position: absolute;
   width: 100%;
   cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
 }
 :host .item img {
   height: 100%;
 }
 :host .item .content {
-  align-self: center;
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+          align-self: center;
 }
 :host.scrolling .item {
   pointer-events: none;
@@ -49,7 +56,7 @@
 }
 :host .item .content {
   line-height: 1.4em;
-  margin-left: 1.5em;
+  margin-left: 1.2em;
 }
 :host .item .content div:last-child {
   font-size: 0.88em;
