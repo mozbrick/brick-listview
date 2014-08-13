@@ -114,9 +114,6 @@
     if (content.hasChildNodes()) {
       el.appendChild(content);
     }
-
-    // meh.
-    el.style.display = 'flex';
   }
 
   function placeItem(listview, i) {
@@ -128,7 +125,6 @@
     } else {
       div = document.createElement('div');
       div.classList.add('item');
-      div.style.display = 'none';
     }
     // place the element along the scroll strip.
     div.style.transform = 'translateY(' + i * 100 + '%)';
@@ -249,7 +245,6 @@
     for (i = 0; i < visibleItems.length; i++) {
       var idx = visibleItems[i];
       if (idx < min || idx > max) {
-        items[idx].style.display = 'none';
         deadPool.push(items[idx]);
         visibleItems.splice(i,1);
         delete items[idx];
