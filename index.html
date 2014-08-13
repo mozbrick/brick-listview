@@ -46,12 +46,12 @@
           addTodo();
         });
         var inserts = [];
-        inserts.push(document.querySelector('#addten').addEventListener('click', function () {
+        document.querySelector('#addten').addEventListener('click', function () {
           for (var i=0; i<10; i++) {
-            addTodo(i);
+            inserts.push(addTodo(i));
           }
-        }));
-        Promise.all(inserts).then(list.render);
+          Promise.all(inserts).then(list.render());
+        });
       });
       function addTodo(offset) {
         store.insert({
