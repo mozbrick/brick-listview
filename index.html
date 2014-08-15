@@ -9,23 +9,34 @@
     <script src="bower_components/platform/platform.js"></script>
 
     <!-- Importing Custom Elemenent -->
-    <link rel="import" href="bower_components/brick-storage-indexeddb/src/brick-storage-indexeddb.html">
-    <link rel="import" href="src/brick-listview.html">
+    <link rel="import" href="bower_components/brick-storage-indexeddb/dist/brick-storage-indexeddb.html">
+    <link rel="import" href="dist/brick-listview.local.html">
     <style>
       html, body {
         height: 100%;
         margin: 0;
       }
+      #list {
+        flex: 1;
+      }
+      #main {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
     </style>
   </head>
   <body>
 
-    <brick-storage-indexeddb id="store" name="todos" keyname="created"></brick-storage-indexeddb>
+    <brick-storage-indexeddb id="store" name="items" keyname="created"></brick-storage-indexeddb>
 
-    <button id="addone">Add 1 Item</button>
-    <button id="addten">Add 10 Items</button>
-
-    <brick-listview storage="store" id="list" label="label"></brick-listview>
+    <div id="main">
+      <nav>
+        <button id="addone">Add 1 Item</button>
+        <button id="addten">Add 10 Items</button>
+      </nav>
+      <brick-listview storage="store" id="list" label="label" image="image" detail="created"></brick-listview>
+    </div>
 
     <script>
       window.addEventListener('WebComponentsReady', function () {
@@ -34,17 +45,22 @@
         document.querySelector('#addone').addEventListener('click', function () {
           addTodo();
         });
+        var inserts = [];
         document.querySelector('#addten').addEventListener('click', function () {
           for (var i=0; i<10; i++) {
-            addTodo(0);
+            inserts.push(addTodo(i));
           }
+          Promise.all(inserts).then(list.render());
         });
       });
       function addTodo(offset) {
         store.insert({
           label: ((Math.random() * 1e6) | 0).toString(16),
+          image: 'http://lorempixel.com/80/80/?' + Math.random(),
           created: Date.now() + (offset || 0),
           done: false
+        }).then(function(){
+          console.log('inserted');
         });
       }
     </script>
